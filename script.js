@@ -23,4 +23,32 @@ function playerSelection(){
 
 }
 
-console.log(playerSelection());
+function playRound(){
+    
+    let computer_selection = computerPlay();
+    let player_selection = playerSelection();
+    let winner = null; //stores the winner of the round
+
+    if (player_selection == computer_selection){
+        winner = "no-one";
+    }
+    else if (player_selection == "Rock" && computer_selection == "Scissors"){
+        winner = "player";
+    }
+    else if(player_selection == "Paper" && computer_selection == "Rock"){
+        winner = "player";
+    }
+    else if(player_selection == "Scissors" && computer_selection == "Paper"){
+        winner = "player";
+    }
+    else{
+        winner = "computer"
+    }
+
+    if (winner == "player"){
+        return `You Win ! ${player_selection} beats ${computer_selection}`;
+    }
+    else{
+        return `You Lose ! ${computer_selection} beats ${player_selection}`;
+    }
+}
