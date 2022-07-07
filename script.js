@@ -68,7 +68,7 @@ function game()
         if(round_result[0]==0) computer_score++;
         if(round_result[0]==1) player_score++;
         
-        alert(round_result[1]+`\n Your score: ${player_score} \t Computer score: ${computer_score}`);
+        alert(`Round ${i+1} of 5. \n`+round_result[1]+`.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
         
     }
     
