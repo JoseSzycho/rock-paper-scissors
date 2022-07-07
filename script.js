@@ -23,7 +23,8 @@ function playerSelection(){ //return the player selection
 
 }
 
-function playRound(player_selection, computer_selection){ //return the round result
+function playRound(player_selection, computer_selection){ //return the round result [x, message y beats z]. 
+    //X=0 -> player looses, x=1 -> player wins, x=2 -> it's a tie
     
     let winner = null; //stores the winner of the round
     
@@ -46,14 +47,41 @@ function playRound(player_selection, computer_selection){ //return the round res
 
     //returning round result
     if (winner == "no-one"){
-        return "No one wins ! This round is a tie";
+        return [2, "No one wins ! This round is a tie"];
     }
     else if(winner == "player"){
-        return `You Win ! ${player_selection} beats ${computer_selection}`;
+        return [1, `You Win ! ${player_selection} beats ${computer_selection}`];
     }
     else{
-        return `You Lose ! ${computer_selection} beats ${player_selection}`;
+        return [0, `You Lose ! ${computer_selection} beats ${player_selection}`];
     }
 }
 
-console.log(playRound(playerSelection(),computerPlay()))
+function game()
+{
+    let player_score = 0;
+    let computer_score = 0;
+
+    for(i = 0; i<5; i++){
+        round_result = playRound(playerSelection(),computerPlay());
+        
+        if(round_result[0]==0) computer_score++;
+        if(round_result[0]==1) player_score++;
+        
+        alert(round_result[1]+`\n Your score: ${player_score} \t Computer score: ${computer_score}`);
+        
+    }
+    
+    if(player_score > computer_score){
+        alert("You win the game !")
+    }
+    else if(player_score < computer_score){
+        alert("You lost the game !")
+    }
+    else{
+        alert("The game is a tie !")
+    }
+
+}
+
+game()
