@@ -54,14 +54,16 @@ let computer_score = 0;
 
 function game()
 {
-    let round_winner = playRound(this.id,computerPlay());
     
-        
+    let round_winner = playRound(this.id,computerPlay());   
     if(round_winner=='computer') computer_score++;
     if(round_winner=='player') player_score++;
-   
-    alert(`Round ${roundCount+1} of 5.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
-     
+    
+    round_number.textContent = roundCount+1;
+    playerScoreId.textContent = player_score;
+    computerScoreId.textContent = computer_score;
+
+    
     roundCount+=1;
     
     if(roundCount >= 5){
@@ -81,6 +83,9 @@ function game()
         roundCount = 0;
         player_score = 0;
         computer_score = 0;
+        playerScoreId.textContent = 0;
+        computerScoreId.textContent = 0;
+        round_number.textContent = 0;
         return; //ends the match
     }
 }
@@ -91,3 +96,7 @@ buttons = document.querySelectorAll('button');
 //add event listener to all buttons
 buttons.forEach((arg) => 
     arg.addEventListener('click', game));
+
+const computerScoreId = document.querySelector('#computer-score')
+const playerScoreId = document.querySelector('#player-score')
+const round_number = document.querySelector('#round-number')
