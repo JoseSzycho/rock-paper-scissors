@@ -8,38 +8,43 @@ function computerPlay(){ //return either "Rock", "Paper", "Scissors"
     return computer_choise;
 }
 
-function playRound(player_selection, computer_selection){ //return the round result [x, message y beats z]. 
-    //X=0 -> player looses, x=1 -> player wins, x=2 -> it's a tie
-    
-    let winner = null; //stores the winner of the round
+function playRound(player_selection, computer_selection){ //return the winner with the winner selection
+  
+    let match = {
+        winner: 'null',
+        message: 'null'
+    }
     
     //calculating round winner
     if (player_selection == computer_selection){
-        winner = "no-one";
+        match.winner = "no-one";
     }
     else if (player_selection == "Rock" && computer_selection == "Scissors"){
-        winner = "player";
+        match.winner = "player";
     }
     else if(player_selection == "Paper" && computer_selection == "Rock"){
-        winner = "player";
+        match.winner = "player";
     }
     else if(player_selection == "Scissors" && computer_selection == "Paper"){
-        winner = "player";
+        match.winner = "player";
     }
     else{
-        winner = "computer"
+        match.winner = "computer"
     }
-
-    //returning round result
-    if (winner == "no-one"){
-        return [2, "No one wins ! This round is a tie"];
+  
+    //selecting winner
+    if (match.winner == "no-one"){
+        match.message = "No one wins ! This round is a tie";
     }
-    else if(winner == "player"){
-        return [1, `You Win ! ${player_selection} beats ${computer_selection}`];
+    else if(match.winner == "player"){
+        match.message = `You Win ! ${player_selection} beats ${computer_selection}`;
     }
     else{
-        return [0, `You Lose ! ${computer_selection} beats ${player_selection}`];
+        match.message = `You Lose ! ${computer_selection} beats ${player_selection}`;
     }
+    
+    alert(match.message);
+    return match.winner;
 }
 
 //initializing variables before match
@@ -49,15 +54,16 @@ let computer_score = 0;
 
 function game()
 {
-    round_result = playRound(this.id,computerPlay());
+    let round_winner = playRound(this.id,computerPlay());
+    
         
-    if(round_result[0]==0) computer_score++;
-    if(round_result[0]==1) player_score++;
-        
-    alert(`Round ${roundCount+1} of 5. \n`+round_result[1]+`.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
-        
+    if(round_winner=='computer') computer_score++;
+    if(round_winner=='player') player_score++;
+   
+    alert(`Round ${roundCount+1} of 5.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
+     
     roundCount+=1;
-
+    
     if(roundCount >= 5){
         
         if(player_score > computer_score){
