@@ -1,26 +1,11 @@
 
+
 function computerPlay(){ //return either "Rock", "Paper", "Scissors"
 
     let computer_choise = ["Rock", "Paper", "Scissors"];
     computer_choise = computer_choise[Math.floor(Math.random()*computer_choise.length)]; //save one of the elements
     
     return computer_choise;
-}
-
-function playerSelection(){ //return the player selection
-    
-    while(true){ //keeps prompting till the selection is accepted
-        
-        player_selection = prompt("Select option: \n1. Rock \n2. Paper \n3. Scissors");
-        switch (player_selection){
-            case "1": return "Rock";
-            case "2": return "Paper";
-            case "3": return "Scissors";
-            default:
-                alert("Wrong selection. Choose again.")
-        }
-    } 
-
 }
 
 function playRound(player_selection, computer_selection){ //return the round result [x, message y beats z]. 
@@ -57,31 +42,46 @@ function playRound(player_selection, computer_selection){ //return the round res
     }
 }
 
+//initializing variables before match
+let roundCount = 0;
+let player_score = 0;
+let computer_score = 0;
+
 function game()
 {
-    let player_score = 0;
-    let computer_score = 0;
+    round_result = playRound(this.id,computerPlay());
+        
+    if(round_result[0]==0) computer_score++;
+    if(round_result[0]==1) player_score++;
+        
+    alert(`Round ${roundCount+1} of 5. \n`+round_result[1]+`.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
+        
+    roundCount+=1;
 
-    for(i = 0; i<5; i++){
-        round_result = playRound(playerSelection(),computerPlay());
+    if(roundCount >= 5){
         
-        if(round_result[0]==0) computer_score++;
-        if(round_result[0]==1) player_score++;
+        if(player_score > computer_score){
+            alert("You win the game !")
+        }
+        else if(player_score < computer_score){
+            alert("You lost the game !")
+        }
+        else{
+            alert("The game is a tie !")
+        }
         
-        alert(`Round ${i+1} of 5. \n`+round_result[1]+`.\n Your score: ${player_score} \t Computer score: ${computer_score}`);
-        
+        //setting variables for new match
+        alert("Starting new match !");
+        roundCount = 0;
+        player_score = 0;
+        computer_score = 0;
+        return; //ends the match
     }
-    
-    if(player_score > computer_score){
-        alert("You win the game !")
-    }
-    else if(player_score < computer_score){
-        alert("You lost the game !")
-    }
-    else{
-        alert("The game is a tie !")
-    }
-
 }
 
-game()
+
+//select all buttons
+buttons = document.querySelectorAll('button');
+//add event listener to all buttons
+buttons.forEach((arg) => 
+    arg.addEventListener('click', game));
